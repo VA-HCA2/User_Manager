@@ -1,18 +1,25 @@
 /*
  * Tests: (happy path)
- *      node app.js create --name="Mt. Washington" --elev="6,288"
- *      node app.js read   --name="Mt. Washington"
- *      node app.js create --name="Mt. Adams" --elev="0,000"
- *      node app.js list
- *      node app.js update --name="Mt. Adams" --elev="5,799"
- *      node app.js read   --name="Mt. Adams"
- *      node app.js delete --name="Mt. Adams"
- *      node app.js list
- */ 
+ *      node app.js create --username="FooBar" --password="password123" --email="foobar@test.com"
+ *      node app.js read   --username="FooBar"
+ *      node app.js create --username="BizBaz" --password="password456" --email="bizbaz@test.com"
+ *      node app.js list   --username="Admin"  --password="admin"
+ *      node app.js update --username="FooBar" --password="password123" --email="foobar@hig.com"
+ *      node app.js read   --username="FooBar"
+ *      node app.js delete --username="BizBaz" --password="password456"
+ *      node app.js list   --username="Admin"  --password="admin"
+ * Tests: (failure)
+ *      node app.js --username="FooBar" --password="password123" --email="foobar@test.com"
+ *      node app.js read   --username="BingBang"
+ *      node app.js create --username="FooBar" --password="password123" --email="foobar@hig.com"
+ *      node app.js list   --username="Admin"  --password="admin123"
+ */
 
 // require third-party Modules
+// (require'os' )Operating system 
 const os = require('os');
 const logger = require('logger').createLogger('log.txt');
+// yargs lets me pass arguments 
 const yargs = require('yargs');
 
 // require custom Module
@@ -22,9 +29,8 @@ const users = require('./users');
 var appUser = os.userInfo();
 
 // Get User input
+// 2 is the command number for example 2 
 var command = process.argv[2];
-console.log(process.argv);
-
 var args = yargs.argv;
 
 var userName = args.username;
@@ -34,67 +40,78 @@ var logStatus = 'Failure';
 var logMsg = '';
 
 // validate data
-if (command.match(/-/g)) {
+if (!command || command.match(/-/g)) {
     // no command sent
     console.log('Command not found!');
 } else {
     // process command
     if (command === 'create') {
-        if (userName !== undefined && email!== undefined && password !== undefined) {
-            var user = users.insertUsers(userName, password,email);
+        if (userName !== undefined && email !== undefined && password !== undefined) {
+            var user = users.insertUsers(userName, password, email);
             if (user) {
-                console.log(`User Created: ${user.username} ${user.password} ${user.email}.`);
+                logStatus = "Success"
+                logMsg = `User Created: ${user.username} ${user.password} ${user.email}.`;
             } else {
-                console.log(`User not created: Duplicate user (${userName}) found!`);
-            }  
+                logMsg = `User not created: Duplicate user (${userName}) found!`;
+            }
         } else {
-            console.log('Missing User Data param(s).');
+            logMsg = 'Missing User Data param(s).';
         }
     } else if (command === 'read') {
         if (userName === undefined) {
-            console.log('Missing User name param.');
+            logMsg = 'Missing User name param.';
         } else {
             var user = users.getUser(userName);
             if (user) {
-                console.log(`User: ${user.username} ${user.email}.`);
+                logStatus = 'Success';
+                logMsg = `User: ${user.username} ${user.email}.`;
             } else {
-                console.log(`User (${userName}) not found!`);
-            }  
+                logMsg = `User (${userName}) not found!`;
+            }
         }
     } else if (command === 'update') {
         if (userName !== undefined && password !== undefined && email !== undefined) {
-            var user = users.updateUser(userName, password,email);
+            var user = users.updateUser(userName, password, email);
             if (user) {
-                console.log(`User Updated: ${user.username} ${user.email}.`);
+                logStatus = 'Success';
+                logMsg = `User Updated: ${user.username} ${user.email}.`;
             } else {
-                console.log(`User (${userName}) not found!`);
-            }  
-        }  else {
-            console.log('Missing User Data param(s).');
+                logMsg = `User (${userName}) not found!`;
+            }
+        } else {
+            logMsg = 'Missing User Data param(s).';
         }
     } else if (command === 'delete') {
-        if (userName === undefined || password === undefined ) {
-            console.log('Missing User name param.');
+        if (userName === undefined || password === undefined) {
+            logMsg = 'Missing User name param.';
         } else {
             var user = users.deleteUser(userName, password);
             if (user) {
-                console.log(`User (${userName}) deleted.`);
+                logStatus = 'Success';
+                logMsg = `User (${userName}) deleted.`;
             } else {
-                console.log(`User (${userName}) not found!`);
-            }  
+                logMsg = `User (${userName}) not found!`;
+            }
         }
     } else if (command === 'list') {
-        var userList = users.listUsers();
-        if (userList.length === 0) {
-            console.log('No users found.');
+        if (userName === undefined || password === undefined) {
+            logMsg = 'Missing credentials.';
+        } else if (userName !== "Admin" || password !== "admin") {
+            logMsg = 'Invalid credentials.';
         } else {
-            console.log('Users:');
-            userList.forEach((val) => {
-                console.log(`${val.username}, ${val.password}, ${val.email}'.`);
-            });
+            var userList = users.listUsers();
+            if (userList.length === 0) {
+                logMsg = 'No users found.';
+            } else {
+                logStatus = 'Success';
+                logMsg = ('Users:');
+                userList.forEach((val) => {
+                    logMsg = `${val.username}, ${val.email}'.`;
+                });
+            }
         }
     } else {
-        console.log(`Command (${command}) not able to be processed.`);
+        logMsg = `Command (${command}) not able to be processed.`;
     }
 }
 

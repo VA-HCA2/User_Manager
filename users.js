@@ -16,25 +16,25 @@ var saveUsers = (users) => {
     fs.writeFileSync('users.json', JSON.stringify(users));      
 };
 
-// Insert a Mountain
+// Insert a User 
 var insertUsers = (username, password,email) => {
     var users = getUsers();
     
     // in ES6, if param and prop names are the same,
     // you can use the following syntax instead of
-    // name: name, elev: elev
+    // username: username, password: password, email:email
     var user = {
       username,
       password,
       email
     };
     
-    // ensure no dups
+    // ensure no duplicates
     var duplicateUsers = users.filter((user) => {
         return (user.username === username || user.email === email);
     });
     
-    // persist the moutains
+    // persist the users
     if (duplicateUsers.length === 0) {
         users.push(user);
         saveUsers(users);
@@ -42,7 +42,7 @@ var insertUsers = (username, password,email) => {
     }
 };
 
-// Get a single Mountain by mountain name
+// Get a single User by user name
 var getUser = (username) => {
     var users = getUsers();
     // ES6 single-line command
@@ -50,23 +50,23 @@ var getUser = (username) => {
     return filteredUsers[0];
 };
 
-// "Update" (delete and insert) a Mountain
+// "Update" (delete and insert) a User
 var updateUser = (username, password,email) => {
   var users= getUsers();
   var filteredUsers = users.filter((user) => user.username === username && user.password === password);
 
-  // verify Mountain exists
+  // verify User exists
   if (filteredUsers.length > 0) {
-    // delete the existing Mountian
+    // delete the existing User
     deleteUser(username,password);
-    // insert new Mountain
+    // insert new User
     return insertUsers(username, password,email);
   }
   
   return filteredUsers[0];
 };
 
-// Delete a Mountain
+// Delete a User
 var deleteUser = (username,password) => {
     var users = getUsers();
     var filteredUsers = users.filter((user) => user.username !== username && user.password!==password);

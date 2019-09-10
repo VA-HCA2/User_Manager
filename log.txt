@@ -16,3 +16,13 @@ info [Tue Sep 10 2019 10:57:27 GMT-0400 (Eastern Daylight Time)]  App accessed b
 info [Tue Sep 10 2019 10:57:52 GMT-0400 (Eastern Daylight Time)]  App accessed by Training:Failure-
 
 info [Tue Sep 10 2019 10:58:33 GMT-0400 (Eastern Daylight Time)]  App accessed by Training:Failure-
+
+info [Tue Sep 10 2019 11:02:52 GMT-0400 (Eastern Daylight Time)]  App accessed by Training:Failure-
+
+info [Tue Sep 10 2019 11:16:01 GMT-0400 (Eastern Daylight Time)]  App accessed by Training:Failure-
+
+info [Tue Sep 10 2019 11:16:09 GMT-0400 (Eastern Daylight Time)]  App accessed by Training:Failure-
+
+info [Tue Sep 10 2019 11:31:06 GMT-0400 (Eastern Daylight Time)]  App accessed by Training:Failure-
+
+info [Tue Sep 10 2019 12:20:58 GMT-0400 (Eastern Daylight Time)]  App accessed by Training:Success-User (BizBaz) deleted.
