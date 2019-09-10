@@ -1,0 +1,18 @@
+
+info [Tue Sep 10 2019 10:52:37 GMT-0400 (Eastern Daylight Time)]  App accessed by Training:Failure-
+
+info [Tue Sep 10 2019 10:52:59 GMT-0400 (Eastern Daylight Time)]  App accessed by Training:Failure-
+
+info [Tue Sep 10 2019 10:53:58 GMT-0400 (Eastern Daylight Time)]  App accessed by Training:Failure-
+
+info [Tue Sep 10 2019 10:55:45 GMT-0400 (Eastern Daylight Time)]  App accessed by Training:Failure-
+
+info [Tue Sep 10 2019 10:56:08 GMT-0400 (Eastern Daylight Time)]  App accessed by Training:Failure-
+
+info [Tue Sep 10 2019 10:57:13 GMT-0400 (Eastern Daylight Time)]  App accessed by Training:Failure-
+
+info [Tue Sep 10 2019 10:57:27 GMT-0400 (Eastern Daylight Time)]  App accessed by Training:Failure-
+
+info [Tue Sep 10 2019 10:57:52 GMT-0400 (Eastern Daylight Time)]  App accessed by Training:Failure-
+
+info [Tue Sep 10 2019 10:58:33 GMT-0400 (Eastern Daylight Time)]  App accessed by Training:Failure-
